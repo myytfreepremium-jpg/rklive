@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RK LIVE TV - Watch Live Sports, Cricket & Football HD</title>
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #ff2a5f;
+            --primary-dark: #b3143c;
+            --primary-gradient: linear-gradient(to bottom, #ff3366, #ff1a4d);
+            --bg-dark: #070714;
+            --card-bg: #11111a;
+            --text-light: #ffffff;
+            --text-muted: #a0a0b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Segoe UI', sans-serif; user-select: none; }
+        body { background-color: var(--bg-dark); color: var(--text-light); overflow-x: hidden; scroll-behavior: smooth; background-image: radial-gradient(circle at top right, #1a0b2e 0%, #070714 50%); min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Header */
+        header {
+            background: rgba(7, 7, 20, 0.95); backdrop-filter: blur(12px);
+            padding: 15px 3%; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 100;
+            flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Logo (Clickable Home Link) */
+        .logo { 
+            font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
+            background: linear-gradient(to right, #ff3366, #ff7733); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            cursor: pointer; text-decoration: none; display: inline-block;
+        }
+
+        .header-controls { display: flex; gap: 12px; flex-wrap: wrap; flex: 1; justify-content: flex-end; align-items: center; }
+        
+        /* ================= 3D ELEMENTS CSS ================= */
+        .elem-3d {
+            padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 700;
+            border: 2px solid #2a2a3d; background: #1a1a2e; color: white;
+            box-shadow: 0 5px 0 #0d0d16, 0 10px 15px rgba(0,0,0,0.5);
+            transition: all 0.1s ease-in-out; outline: none; cursor: pointer; text-decoration: none;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+        .elem-3d:active { transform: translateY(5px); box-shadow: 0 0px 0 #0d0d16, 0 5px 10px rgba(0,0,0,0.5); }
+        .elem-3d:focus { border-color: var(--primary); }
+
+        .btn-primary-3d {
+            background: var(--primary-gradient); border-color: #ff4d79;
+            box-shadow: 0 5px 0 var(--primary-dark), 0 10px 15px rgba(255, 42, 95, 0.4); text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        .btn-primary-3d:active { transform: translateY(5px); box-shadow: 0 0px 0 var(--primary-dark), 0 5px 10px rgba(255, 42, 95, 0.4); }
+
+        /* Search & Category Setup */
+        .search-box { min-width: 250px; cursor: text; }
+        .search-box::placeholder { color: var(--text-muted); font-weight: normal; }
+        .category-wrapper { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.05); padding-left: 10px; border-radius: 8px; border: 2px solid #2a2a3d; box-shadow: 0 5px 0 #0d0d16; transition: all 0.1s;}
+        .category-wrapper:active { transform: translateY(5px); box-shadow: 0 0 0 #0d0d16; }
+        .category-wrapper span { color: var(--primary); font-weight: bold; font-size: 14px; }
+        .category-select { background: transparent; border: none; color: white; outline: none; padding: 10px 10px 10px 0; font-weight: 700; cursor: pointer;}
+        .category-select option { background: #11111a; color: white; }
+
+        /* ================= VIDEO PLAYER (Smaller & 4-side spacing) ================= */
+        #player-wrapper {
+            display: none; position: sticky; top: 90px; z-index: 99;
+            padding: 20px; /* Space from all 4 sides */
+            pointer-events: none; /* Let clicks pass through background */
+        }
+        #player-container {
+            width: 100%; max-width: 550px; margin: 0 auto; background: #000;
+            border-radius: 16px; overflow: hidden; position: relative; 
+            border: 3px solid #2a2a3d; box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 30px rgba(255, 42, 95, 0.3);
+            pointer-events: auto; /* Enable clicks inside player */
+        }
+        .player-header { padding: 10px; background: #1a1a2e; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #2a2a3d; }
+        .player-header h3 { font-size: 14px; color: #fff; display: none; /* Hidden requested */ } 
+        
+        .watermark {
+            position: absolute; top: 15px; right: 15px; z-index: 10; color: rgba(255, 255, 255, 0.4);
+            font-weight: bold; font-size: 18px; pointer-events: none;
+            background: linear-gradient(to right, #ffffff, #a0a0b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 2px 2px 5px #000;
+        }
+        #pre-roll {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; z-index: 20; color: white; font-size: 28px; font-weight: 900;
+        }
+        .loading-spinner { margin-top: 15px; border: 4px solid rgba(255, 42, 95, 0.2); border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; background: #000; }
+
+        /* Main Content Container */
+        #main-content { flex: 1; }
+        .container { padding: 30px 5%; max-width: 1600px; margin: 0 auto; min-height: 60vh; }
+        h2.section-title { margin-bottom: 30px; padding-left: 15px; font-size: 24px; font-weight: 800; text-transform: uppercase; border-left: 6px solid var(--primary); }
+        
+        .matches-grid { display: grid; gap: 25px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+        
+        /* Match Card */
+        .match-card {
+            background: var(--card-bg); border-radius: 16px; transition: all 0.3s ease; 
+            border: 2px solid #1a1a2e; position: relative; overflow: hidden; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6); display: flex; flex-direction: column;
+        }
+        .match-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(255, 42, 95, 0.2); }
+
+        /* POSTER - Cover size, No Black Bars */
+        .poster-area {
+            position: relative; width: 100%; height: 170px; 
+            background-size: cover; background-position: center top; 
+            background-repeat: no-repeat; background-color: #1a1a2e;
+            display: flex; justify-content: center; align-items: center;
+        }
+        /* Gradient overlay for poster */
+        .poster-area::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, #11111a, transparent); }
+
+        /* Default Text Logo Fallback */
+        .default-logo-text { font-size: 30px; font-weight: 900; color: #33334d; text-transform: uppercase; letter-spacing: 2px; }
+
+        .time-badge {
+            position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.8);
+            color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px;
+            font-weight: 800; z-index: 5; border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .match-info { padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; z-index: 2; }
+        
+        .countdown-timer { background: rgba(0, 0, 0, 0.5); padding: 6px; border-radius: 8px; font-size: 13px; text-align: center; font-weight: bold; border: 1px solid #2a2a3d; color: #eab308; }
+        .match-category { font-size: 12px; text-transform: uppercase; color: #ff3366; text-align: center; font-weight: 900; letter-spacing: 1px; margin-top: 5px; }
+        .match-title { font-size: 16px; font-weight: 800; color: white; text-align: center; line-height: 1.3; }
+        .match-date { font-size: 12px; color: var(--text-muted); text-align: center; font-weight: 600; background: #1a1a2e; padding: 5px; border-radius: 5px;}
+
+        /* Modal Design */
+        #stream-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
+        .modal-content { background: #11111a; border-radius: 16px; width: 90%; max-width: 400px; border: 2px solid #2a2a3d; display: flex; flex-direction: column; overflow: hidden; max-height: 80vh; }
+        .modal-header { padding: 15px; border-bottom: 2px solid #2a2a3d; display: flex; justify-content: space-between; align-items: center; background: #1a1a2e; }
+        .modal-header h3 { font-size: 16px; font-weight: 700; color: white; }
+        #stream-options-container { padding: 15px; overflow-y: auto; flex: 1; }
+        #stream-options-container::-webkit-scrollbar { width: 5px; }
+        #stream-options-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        
+        .stream-option { display: block; width: 100%; padding: 12px; margin-bottom: 10px; background: #1a1a2e; color: white; border: 2px solid #2a2a3d; border-radius: 8px; cursor: pointer; text-align: left; font-size: 14px; font-weight: 700; transition: 0.2s; }
+        .stream-option:hover { border-color: var(--primary); background: rgba(255,42,95,0.1); transform: translateX(5px); }
+        .hd-badge { background: #10b981; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 11px; float: right; font-weight: 800; }
+        .loader { text-align: center; padding: 50px; font-size: 16px; width: 100%; color: var(--text-muted); font-weight: bold; }
+
+        /* ================= ABOUT PAGE (100,000 chars simulation) ================= */
+        #about-page { display: none; padding: 40px 5%; max-width: 1200px; margin: 0 auto; flex: 1; }
+        .about-box { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 2px solid #2a2a3d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .about-box h2 { color: var(--primary); margin-bottom: 20px; font-size: 28px; border-bottom: 2px solid #2a2a3d; padding-bottom: 10px;}
+        .about-text-content { color: var(--text-muted); font-size: 15px; line-height: 1.8; text-align: justify; }
+        
+        /* Footer */
+        footer { background: #0d0d16; padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; font-weight: 600; border-top: 1px solid #2a2a3d; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: center; }
+            .header-controls { width: 100%; flex-direction: column; }
+            .elem-3d, .category-wrapper { width: 100%; justify-content: center; }
+            #player-wrapper { top: 220px; } 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <!-- Logo (Reloads home) -->
+        <div class="logo" onclick="resetToHome()">RK LIVE TV</div>
+        
+        <div class="header-controls">
+            <!-- Global Search Box 3D -->
+            <input type="text" id="search-input" class="elem-3d search-box" placeholder="🔍 Search any match globally...">
+            
+            <!-- Category Dropdown 3D -->
+            <div class="category-wrapper">
+                <span>Category:</span>
+                <select id="sport-selector" class="category-select">
+                    <option value="live">🔴 LIVE MATCHES HD</option>
+                    <option value="all-today">📅 TODAY'S MATCHES</option>
+                </select>
+            </div>
+
+            <!-- 2nd Website Button 3D -->
+            <a href="https://rklivetv.vercel.app/" target="_blank" class="elem-3d">🌐 ২য় ওয়েবসাইট</a>
+            
+            <!-- About Button 3D -->
+            <button onclick="showAboutPage()" class="elem-3d">ℹ️ About Us</button>
+        </div>
+    </header>
+
+    <!-- Video Player (Smaller & Spaced) -->
+    <div id="player-wrapper">
+        <div id="player-container">
+            <div class="player-header">
+                <!-- Back Button everywhere -->
+                <button class="elem-3d btn-primary-3d" style="padding: 5px 12px; font-size:12px;" onclick="closePlayer()">🔙 Back</button>
+            </div>
+            <!-- Watermark Inside Frame -->
+            <div class="watermark">RK LIVE TV</div>
+            <div id="pre-roll" style="display: none;">
+                <div>RK <span style="color:var(--primary)">LIVE TV</span></div>
+                <div class="loading-spinner"></div>
+            </div>
+            <iframe id="video-frame" allow="autoplay; fullscreen"></iframe>
+        </div>
+    </div>
+
+    <!-- Main Match Content -->
+    <div id="main-content">
+        <div class="container">
+            <h2 class="section-title" id="current-category">Live Matches HD</h2>
+            <div id="matches-grid" class="matches-grid">
+                <div class="loader">Loading Global Servers... Please wait.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Server Selection Modal -->
+    <div id="stream-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Server</h3>
+                <button class="elem-3d btn-primary-3d" style="padding: 5px 12px; font-size:12px;" onclick="closeModal()">🔙 Back</button>
+            </div>
+            <div id="stream-options-container"></div>
+        </div>
+    </div>
+
+    <!-- About Page (Hidden by default) -->
+    <div id="about-page">
+        <div class="about-box">
+            <button class="elem-3d btn-primary-3d" style="margin-bottom: 20px;" onclick="resetToHome()">🔙 Back to Home</button>
+            <h2>About RK LIVE TV</h2>
+            <div class="about-text-content" id="long-about-text">
+                <!-- Javascript will populate 100,000 characters here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Copyright -->
+    <footer>
+        &copy; 2026 RK LIVE TV. All rights reserved. Design & Developed by RK.
+    </footer>
+
+    <!-- Core Javascript -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false; 
+            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; 
+        };
+
+        const API_BASE = 'https://streamed.pk/api';
+        let currentCategoryMatches = []; 
+        let globalAllMatches = []; // For Global Search
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSports();
+            fetchMatches('live'); 
+            fetchGlobalMatches(); // Fetch all matches silently in background
+            generateLongAboutText(); // Generate 100,000 chars text
+
+            document.getElementById('sport-selector').addEventListener('change', (e) => {
+                document.getElementById('search-input').value = ''; 
+                document.getElementById('current-category').innerText = e.target.options[e.target.selectedIndex].text;
+                fetchMatches(e.target.value);
+            });
+
+            // GLOBAL SEARCH LOGIC
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                if(!searchTerm) { 
+                    document.getElementById('current-category').innerText = "Category Results";
+                    displayMatches(currentCategoryMatches); 
+                    return; 
+                }
+                
+                document.getElementById('current-category').innerText = `Search Results for "${searchTerm}"`;
+                // Search from GLOBAL data
+                const filtered = globalAllMatches.filter(match => {
+                    const title = match.title ? match.title.toLowerCase() : '';
+                    const hTeam = match.teams?.home?.name ? match.teams.home.name.toLowerCase() : '';
+                    const aTeam = match.teams?.away?.name ? match.teams.away.name.toLowerCase() : '';
+                    const cat = match.category ? match.category.toLowerCase() : '';
+                    return title.includes(searchTerm) || hTeam.includes(searchTerm) || aTeam.includes(searchTerm) || cat.includes(searchTerm);
+                });
+                displayMatches(filtered);
+            });
+
+            setInterval(updateCountdowns, 1000);
+        });
+
+        // Fetch ALL matches globally for search
+        async function fetchGlobalMatches() {
+            try {
+                const response = await fetch(`${API_BASE}/matches/all`);
+                globalAllMatches = await response.json();
+            } catch (error) { console.log("Global fetch failed."); }
+        }
+
+        // Navigation Functions
+        function resetToHome() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('about-page').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('sport-selector').value = 'live';
+            document.getElementById('current-category').innerText = '🔴 LIVE MATCHES HD';
+            closePlayer();
+            fetchMatches('live');
+        }
+
+        function showAboutPage() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('about-page').style.display = 'block';
+            closePlayer();
+            window.scrollTo(0,0);
+        }
+
+        // Generate 100,000 Characters text
+        function generateLongAboutText() {
+            const baseText = "RK LIVE TV is the ultimate destination for premium sports streaming. We provide high-definition, buffer-free live streams for Football, Cricket, Basketball, Tennis, and many other global sporting events. Our platform is completely free and optimized for all devices including mobile phones, tablets, PCs, and Smart TVs. We ensure that sports fans never miss a single moment of their favorite tournaments like the FIFA World Cup, ICC Cricket World Cup, UEFA Champions League, English Premier League, La Liga, NBA, and more. Enjoy seamless UI, fast servers, and secure streaming environments dedicated entirely to delivering the best user experience. ";
+            // Repeat to cross 100,000 characters
+            const repeatCount = Math.ceil(100000 / baseText.length);
+            document.getElementById('long-about-text').innerText = baseText.repeat(repeatCount);
+        }
+
+        function updateCountdowns() {
+            const timerElements = document.querySelectorAll('.countdown-timer');
+            const now = Date.now();
+            timerElements.forEach(el => {
+                const targetTime = parseInt(el.getAttribute('data-time'));
+                const diff = targetTime - now;
+                if (diff > 0) {
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    let timeStr = '⏳ Starts in: ';
+                    if (d > 0) timeStr += `${d}d `;
+                    timeStr += `${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+                    el.innerText = timeStr; el.style.color = '#eab308'; 
+                } else {
+                    el.innerText = '🔴 MATCH IS LIVE'; el.style.color = '#10b981'; 
+                }
+            });
+        }
+
+        async function loadSports() {
+            try {
+                const response = await fetch(`${API_BASE}/sports`);
+                const sports = await response.json();
+                const selector = document.getElementById('sport-selector');
+                sports.forEach(sport => {
+                    const option = document.createElement('option');
+                    option.value = sport.id; option.textContent = sport.name.toUpperCase();
+                    selector.appendChild(option);
+                });
+            } catch (error) {}
+        }
+
+        async function fetchMatches(endpoint) {
+            const grid = document.getElementById('matches-grid');
+            grid.innerHTML = '<div class="loader">Loading Matches...</div>';
+            try {
+                const response = await fetch(`${API_BASE}/matches/${endpoint}`);
+                const matches = await response.json();
+                currentCategoryMatches = matches; 
+                displayMatches(matches);
+                updateCountdowns(); 
+            } catch (error) { grid.innerHTML = '<div class="loader">Failed to connect to server.</div>'; }
+        }
+
+        function displayMatches(matches) {
+            const grid = document.getElementById('matches-grid');
+            grid.innerHTML = '';
+
+            if (matches.length === 0) {
+                grid.innerHTML = '<div class="loader">No matches found currently.</div>';
+                return;
+            }
+
+            matches.forEach(match => {
+                const matchDate = new Date(match.date);
+                const timeString = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Dhaka', hour: 'numeric', minute: 'numeric', hour12: true }).format(matchDate);
+                const dateString = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Dhaka', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(matchDate);
+
+                // THUMBNAIL LOGIC (Cover Size, No Black Bars, Custom Default)
+                let posterStyle = '';
+                let defaultTextHTML = '';
+
+                if (match.poster && !match.poster.includes('default')) {
+                    posterStyle = `background-image: url('https://streamed.pk${match.poster}.webp');`;
+                } else if (match.teams?.home?.badge && match.teams?.away?.badge) {
+                    posterStyle = `background-image: url('${API_BASE}/images/poster/${match.teams.home.badge}/${match.teams.away.badge}.webp');`;
+                } else {
+                    // CSS Default Fallback without depending on external placeholder image
+                    posterStyle = `background: linear-gradient(135deg, #1a0b2e, #070714);`;
+                    defaultTextHTML = `<div class="default-logo-text">RK LIVE TV</div>`;
+                }
+                
+                const hasStreams = match.sources && match.sources.length > 0;
+
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                card.innerHTML = `
+                    <!-- POSTER AREA -->
+                    <div class="poster-area" style="${posterStyle}">
+                        ${defaultTextHTML}
+                        <div class="time-badge">${timeString}</div>
+                        <!-- Star removed as requested -->
+                    </div>
+                    
+                    <div class="match-info">
+                        <div class="countdown-timer" data-time="${match.date}">⏳ Calculating...</div>
+                        <div class="match-category">${match.category}</div>
+                        <div class="match-title">${match.title}</div>
+                        <div class="match-date">📅 ${dateString} (Bangladesh Time)</div>
+                        
+                        <button class="elem-3d btn-primary-3d" style="width:100%; margin-top:10px;" ${!hasStreams ? 'disabled' : ''} 
+                            onclick='getStreams(${JSON.stringify(match.sources)}, "${match.title.replace(/'/g, "\\'")}")'>
+                            ${hasStreams ? '▶ WATCH LIVE HD' : 'NO STREAM YET'}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function getStreams(sources, matchTitle) {
+            if (!sources || sources.length === 0) return;
+            const source = sources[0];
+            const modal = document.getElementById('stream-modal');
+            const container = document.getElementById('stream-options-container');
+            
+            container.innerHTML = '<div class="loader">Searching High Speed Servers...</div>';
+            modal.style.display = 'flex';
+
+            try {
+                const response = await fetch(`${API_BASE}/stream/${source.source}/${source.id}`);
+                const streams = await response.json();
+                if (streams.length === 0) { container.innerHTML = '<div class="loader">No active servers.</div>'; return; }
+
+                container.innerHTML = '';
+                streams.forEach(stream => {
+                    const btn = document.createElement('button');
+                    btn.className = 'stream-option elem-3d';
+                    btn.innerHTML = `📺 Server ${stream.streamNo} | ${stream.language} ${stream.hd ? '<span class="hd-badge">HD</span>' : ''}`;
+                    btn.onclick = () => playVideo(stream.embedUrl, matchTitle);
+                    container.appendChild(btn);
+                });
+            } catch (error) { container.innerHTML = '<div class="loader">Server error.</div>'; }
+        }
+
+        function playVideo(embedUrl, matchTitle) {
+            closeModal();
+            const playerWrapper = document.getElementById('player-wrapper');
+            const iframe = document.getElementById('video-frame');
+            const preRoll = document.getElementById('pre-roll');
+
+            document.title = `🔴 LIVE: ${matchTitle} - RK LIVE TV`;
+            playerWrapper.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            preRoll.style.display = 'flex'; iframe.style.display = 'none'; iframe.src = ''; 
+            setTimeout(() => { preRoll.style.display = 'none'; iframe.style.display = 'block'; iframe.src = embedUrl; }, 3000);
+        }
+
+        function closePlayer() {
+            document.getElementById('player-wrapper').style.display = 'none';
+            document.getElementById('video-frame').src = ''; 
+            document.title = "RK LIVE TV - Watch Live Sports"; 
+        }
+
+        function closeModal() { document.getElementById('stream-modal').style.display = 'none'; }
+    </script>
+</body>
+</html>
