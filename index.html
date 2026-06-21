@@ -1,11 +1,10 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <!-- Google Site Verification (Do not remove) -->
     <meta name="google-site-verification" content="puDGakskvmrw7HPTZZYQJaKY7KiPP0rJT-koJyDcyag" />
     
     <!-- ================= ADVANCED & PROFESSIONAL SEO META TAGS ================= -->
@@ -15,7 +14,7 @@
     <meta name="author" content="RK LIVED">
     <meta name="publisher" content="RK LIVED">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="theme-color" content="#d32f2f"> <!-- Changes mobile browser address bar color -->
+    <meta name="theme-color" content="#d32f2f">
     <link rel="canonical" href="https://rklived.vercel.app/">
     
     <!-- Geo Targeting (Boosting Local SEO for Bangladesh) -->
@@ -26,8 +25,8 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rklived.vercel.app/">
     <meta property="og:title" content="RK LIVED - Watch Premium Live Sports HD">
-    <meta property="og:description" content="Enjoy high-quality, buffer-free live sports streaming. Watch live Football, Cricket, and daily matches for free on your mobile or PC.">
-    <meta property="og:image" content="https://rklived.vercel.app/banner.jpg"> <!-- Note: Upload a banner.jpg to your host -->
+    <meta property="og:description" content="Enjoy high-quality, buffer-free live sports streaming. Watch live Football, Cricket, and daily matches for free.">
+    <meta property="og:image" content="https://rklived.vercel.app/banner.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="RK LIVED">
@@ -42,7 +41,7 @@
     <meta name="twitter:description" content="Watch high-quality, buffer-free live sports streaming including Football and Cricket. Full HD servers inside.">
     <meta name="twitter:image" content="https://rklived.vercel.app/banner.jpg">
 
-    <!-- Advanced JSON-LD Structured Data (Google Rich Snippets & Brand Knowledge Graph) -->
+    <!-- Advanced JSON-LD Structured Data (Google Rich Snippets) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -194,6 +193,7 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
         
+        /* Back Button - Outside Video */
         .player-top-bar {
             width: 100%; max-width: 900px; margin: 0 auto 10px auto; 
             display: flex; justify-content: flex-start;
@@ -215,6 +215,7 @@
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
 
+        /* Watermark inside Video */
         .player-overlay-watermark {
             position: absolute; top: 15px; right: 15px; 
             z-index: 2147483647; 
@@ -313,9 +314,7 @@
         /* ================= ABOUT PAGE ================= */
         #about-page { display: none; padding: 40px 4%; max-width: 900px; margin: 0 auto; flex: 1; }
         .about-box { background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); }
-        .about-box h2 { color: var(--text-light); margin-bottom: 20px; font-size: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;}
-        .about-text-content { color: var(--text-muted); font-size: 15px; line-height: 1.8; text-align: justify; }
-
+        
         /* ================= FOOTER ================= */
         footer { background: var(--footer-bg); padding: 25px 4%; border-top: 1px solid var(--border-color); margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .footer-btn { background: transparent; color: var(--text-muted); border: none; font-size: 14px; cursor: pointer; }
@@ -384,6 +383,7 @@
                 Loading Stream...
             </div>
             
+            <!-- Secure IFRAME Sandbox Bypass -->
             <iframe id="video-frame" 
                 allow="autoplay; encrypted-media; fullscreen; picture-in-picture" 
                 allowfullscreen 
@@ -414,12 +414,11 @@
         </div>
     </div>
 
-    <!-- About Page -->
+    <!-- About Page with SEO & DMCA Notice -->
     <div id="about-page">
         <div class="about-box">
             <button class="btn-modern" style="margin-bottom: 20px; width:auto;" onclick="resetToHome()">Back to Home</button>
-            <h2>About RK LIVED</h2>
-            <div class="about-text-content" id="long-about-text"></div>
+            <div id="long-about-text"></div>
         </div>
     </div>
 
@@ -433,6 +432,7 @@
 
     <!-- Core Javascript -->
     <script>
+        // Basic protection scripts
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if(e.keyCode == 123) return false; 
@@ -524,10 +524,38 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Formatted and SEO Optimized About Section with API Disclaimer
         function generateLongAboutText() {
-            const baseText = "RK LIVED is the premier professional sports streaming platform. We provide highly optimized, buffer-free live streams for global sporting events including Football, Cricket, Basketball, and Tennis. Designed with advanced UI/UX principles, our site ensures a seamless viewing experience across PCs, mobiles, and Smart TVs. Watch major tournaments completely free in High Definition. We prioritize user experience, fast server routing, and cross-device compatibility. ";
-            const repeatCount = Math.ceil(100000 / baseText.length);
-            document.getElementById('long-about-text').innerText = baseText.repeat(repeatCount);
+            const aboutHTML = `
+                <div style="margin-bottom: 25px;">
+                    <h3 style="color: var(--text-light); margin-bottom: 10px; font-size: 20px; font-weight:800; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">About RK LIVED - Your Ultimate Sports Portal</h3>
+                    <p style="margin-bottom: 15px; color: var(--text-muted); font-size: 15px; line-height: 1.8;">Welcome to <strong>RK LIVED</strong>, the premier destination for live sports enthusiasts. Our platform is dedicated to providing high-quality, buffer-free live streaming for <strong>Football, Cricket, Basketball, Tennis</strong>, and other global sporting events. Whether you are looking for today's live match, ICC Cricket Tournaments, IPL, BPL, English Premier League (EPL), La Liga, or the UEFA Champions League, RK LIVED brings HD sports directly to your screen completely free.</p>
+                </div>
+                
+                <div style="margin-bottom: 25px; padding: 15px; background: rgba(211, 47, 47, 0.05); border-left: 4px solid var(--primary); border-radius: 4px;">
+                    <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 16px;">⚠️ Disclaimer & API Usage (Copyright Notice)</h3>
+                    <p style="font-size: 14.5px; color: var(--text-muted); line-height: 1.6;">
+                        <strong>RK LIVED acts strictly as a sports aggregator and embedding portal.</strong> We do not host, upload, broadcast, or manage any video content or media files on our own servers. 
+                        All live streams and video players displayed on this website are provided through <strong>Third-Party APIs</strong> and external web servers available publicly on the internet. 
+                        We simply index and embed these links for the convenience of sports fans. Therefore, RK LIVED holds no liability for the media content. Any copyright infringement issues or DMCA takedown requests should be directed to the respective third-party video hosting providers.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--text-light); margin-bottom: 10px; font-size: 18px;">Why Choose RK LIVED?</h3>
+                    <ul style="list-style-type: none; padding: 0; color: var(--text-muted); line-height: 1.8; font-size: 15px;">
+                        <li>✅ <strong>100% Free Access:</strong> Enjoy premium sports content without any hidden subscriptions.</li>
+                        <li>✅ <strong>Multi-Device Optimization:</strong> Watch seamlessly on Mobile Phones, Tablets, PCs, and Smart TVs.</li>
+                        <li>✅ <strong>High-Speed Servers:</strong> Multiple secure server options to ensure a buffer-free viewing experience.</li>
+                        <li>✅ <strong>Real-Time Updates:</strong> Instant countdowns and live match status adjusted to Bangladesh Time (BD Time).</li>
+                    </ul>
+                </div>
+                
+                <p style="margin-top: 20px; font-style: italic; color: #64748b; font-size: 14px;">
+                    Thank you for choosing RK LIVED. Bookmark our website (rklived.vercel.app) to never miss a moment of your favorite live matches!
+                </p>
+            `;
+            document.getElementById('long-about-text').innerHTML = aboutHTML;
         }
 
         function updateCountdowns() {
