@@ -204,6 +204,53 @@
         #about-page { display: none; padding: 40px 4%; max-width: 900px; margin: 0 auto; flex: 1; }
         .about-box { background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); }
 
+        /* ================= [NATIVE SPONSORED AD] ONE-LINE CSS ================= */
+        .sponsored-section {
+            margin: 40px auto 20px auto;
+            padding: 20px 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        .sponsored-label {
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+        .native-ad-wrapper {
+            width: 100%;
+            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow-y: hidden;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            -webkit-overflow-scrolling: touch; /* Smooth swipe on mobile */
+            padding-bottom: 8px; /* Space for scrollbar */
+        }
+        /* Custom Scrollbar for Native Ad Box */
+        .native-ad-wrapper::-webkit-scrollbar { height: 6px; }
+        .native-ad-wrapper::-webkit-scrollbar-track { background: var(--bg-dark); border-radius: 10px; }
+        .native-ad-wrapper::-webkit-scrollbar-thumb { background: #64748b; border-radius: 10px; }
+        .native-ad-wrapper::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        
+        /* Force Adsterra internal container to stay in ONE LINE */
+        #container-06867505808da574ed1a2eb44b4e38bc {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important; /* Forces NO line break */
+            gap: 15px;
+            min-width: max-content; /* Precents items from shrinking */
+        }
+        /* ====================================================================== */
+
         footer { background: var(--footer-bg); padding: 25px 4%; border-top: 1px solid var(--border-color); margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .copyright { color: var(--text-muted); font-size: 12px; text-align: center; }
 
@@ -271,7 +318,7 @@
             <iframe id="video-frame" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer" scrolling="no"></iframe>
         </div>
 
-        <!-- ================= [AD PLACEMENT: 1] SMARTLINK BUTTONS (SAFE ADS) ================= -->
+        <!-- [AD PLACEMENT: 1] SMARTLINK BUTTONS -->
         <div class="smartlink-container">
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">🚀 High-Speed Server-1</a>
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">⚡ High-Speed Server-2</a>
@@ -282,17 +329,6 @@
     <div id="main-content">
         <div class="container">
             
-            <!-- 
-            ========================================================================================
-            [AD PLACEMENT: 2 & 3] BANNER ADS - ⚠️ REMOVED DUE TO BLACK SCREEN ISSUE
-            ========================================================================================
-            আপনার রিকোয়েস্ট অনুযায়ী ডেস্কটপে অর্ধেক স্ক্রিন ব্ল্যাক হয়ে থাকার সমস্যার কারণে 
-            হেডারের নিচের Adsterra ব্যানারটি সম্পূর্ণ ডিজেবল/রিমুভ করে দেওয়া হয়েছে।
-            এখন থেকে আর কোনো ব্ল্যাক স্ক্রিন আসবে না। 
-            ======================================================================================== 
-            -->
-            <div id="ad-placeholder" style="display: none;"></div>
-
             <h2 class="section-title" id="current-category">Live Matches</h2>
             
             <div id="matches-grid" class="matches-grid">
@@ -301,6 +337,19 @@
                     Loading matches from server...
                 </div>
             </div>
+
+            <!-- ================= [AD PLACEMENT: NATIVE SPONSORED AD] ================= -->
+            <!-- অ্যাডটি একটি সুন্দর বক্সে এবং এক লাইনে সোয়াইপ/স্ক্রল করার ব্যবস্থা করে দেওয়া হয়েছে -->
+            <div class="sponsored-section">
+                <span class="sponsored-label">⭐ Sponsored Content ⭐</span>
+                <div class="native-ad-wrapper">
+                    <!-- ADSTERRA NATIVE CODE START -->
+                    <div id="container-06867505808da574ed1a2eb44b4e38bc"></div>
+                    <script async="async" data-cfasync="false" src="https://pl29830891.effectivecpmnetwork.com/06867505808da574ed1a2eb44b4e38bc/invoke.js"></script>
+                    <!-- ADSTERRA NATIVE CODE END -->
+                </div>
+            </div>
+            <!-- ======================================================================= -->
 
         </div>
     </div>
@@ -331,7 +380,6 @@
 
     <!-- Core Javascript -->
     <script>
-        // Copy protection
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if(e.keyCode == 123) return false; 
@@ -592,10 +640,10 @@
         function closeModal() { document.getElementById('stream-modal').style.display = 'none'; }
     </script>
 
-    <!-- ================= [AD PLACEMENT: 4] POPUNDER (SAFE - NO VISUAL SCREEN BLOCKING) ================= -->
+    <!-- [AD PLACEMENT] POPUNDER -->
     <script type="text/javascript" src="https://pl29830890.effectivecpmnetwork.com/cd/fe/2d/cdfe2d8264320dc25437795b5c0abefe.js"></script>
 
-    <!-- DYNAMIC AI VIEWER TRACKER (SMOOTH & REALISTIC ALGORITHM) -->
+    <!-- DYNAMIC AI VIEWER TRACKER -->
     <script>
         function formatViewers(num) {
             if (num >= 1000000) return (num / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M'; 
