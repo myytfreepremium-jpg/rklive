@@ -41,7 +41,7 @@
     <meta name="twitter:description" content="Watch high-quality, buffer-free live sports streaming including Football and Cricket. Full HD servers inside.">
     <meta name="twitter:image" content="https://rklived.vercel.app/banner.jpg">
 
-    <!-- Advanced JSON-LD Structured Data (Google Rich Snippets) -->
+    <!-- Advanced JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -61,15 +61,6 @@
             "query-input": "required name=search_term_string"
           },
           "inLanguage": ["en-US", "bn-BD"]
-        },
-        {
-          "@type": "Organization",
-          "@id": "https://rklived.vercel.app/#organization",
-          "name": "RK LIVED",
-          "url": "https://rklived.vercel.app/",
-          "sameAs": [
-            "https://rklivetv.vercel.app/"
-          ]
         }
       ]
     }
@@ -137,7 +128,6 @@
             50% { opacity: 0.3; box-shadow: 0 0 0px var(--primary); }
             100% { opacity: 1; box-shadow: 0 0 5px var(--primary); }
         }
-        /* =============================================================== */
 
         .header-sub { display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 0 4%; background: rgba(0, 0, 0, 0.1); }
         body.light-theme .header-sub { background: rgba(0, 0, 0, 0.02); }
@@ -171,44 +161,6 @@
         .smartlink-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; }
         .smartlink-btn { background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: 0.2s; display: flex; align-items: center; gap: 5px; }
         .smartlink-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(16,185,129,0.4); color: white;}
-
-        /* ================= AD BANNER CSS (FIXED FOR DESKTOP & MOBILE) ================= */
-        .ad-label {
-            font-size: 10px; color: var(--text-muted); text-transform: uppercase; 
-            letter-spacing: 1.5px; margin-bottom: 5px; display: block; text-align: center;
-        }
-
-        /* Top 728x90 Banner Strict CSS (To prevent taking half display on Desktop) */
-        .ad-banner-top-container {
-            width: 100%; max-width: 728px; margin: 20px auto; 
-            text-align: center; display: flex; flex-direction: column; align-items: center;
-        }
-        .ad-banner-top-wrapper { 
-            width: 728px; height: 90px; max-height: 90px; /* STRICT HEIGHT LIMIT */
-            overflow: hidden; /* PREVENTS AD FROM EXPANDING DOWNWARDS */
-            display: flex; justify-content: center; align-items: flex-start;
-            background: var(--card-bg); border: 1px dashed var(--border-color); border-radius: 4px;
-        }
-
-        /* Native Banner CSS */
-        .ad-banner-native-container {
-            width: 100%; margin: 40px auto; overflow: hidden; text-align: center;
-        }
-
-        /* Mobile scaling logic to handle 728x90 properly without breaking layout */
-        @media (max-width: 768px) {
-            .ad-banner-top-wrapper {
-                transform: scale(0.65); transform-origin: top center;
-                margin-bottom: -30px; /* Removes empty space created by scale down */
-                border: none;
-            }
-        }
-        @media (max-width: 480px) {
-            .ad-banner-top-wrapper {
-                transform: scale(0.45);
-                margin-bottom: -45px;
-            }
-        }
 
         /* ================= MAIN CONTENT ================= */
         #main-content { flex: 1; }
@@ -244,7 +196,6 @@
         .stream-option:hover { border-color: var(--primary); color: var(--primary); transform: translateX(5px); }
         .hd-badge { background: var(--primary); color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 10px; float: right; font-weight: 700; }
         
-        /* Smooth Spinner Custom */
         .loader { text-align: center; padding: 40px; font-size: 14px; width: 100%; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .spinner { width: 30px; height: 30px; border: 3px solid rgba(211, 47, 47, 0.3); border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -253,7 +204,6 @@
         #about-page { display: none; padding: 40px 4%; max-width: 900px; margin: 0 auto; flex: 1; }
         .about-box { background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); }
 
-        /* ================= FOOTER ================= */
         footer { background: var(--footer-bg); padding: 25px 4%; border-top: 1px solid var(--border-color); margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .copyright { color: var(--text-muted); font-size: 12px; text-align: center; }
 
@@ -277,7 +227,6 @@
 
     <header>
         <div class="header-main">
-            <!-- LOGO WITH DYNAMIC AI LIVE COUNTER -->
             <div class="logo-container">
                 <div class="logo" onclick="resetToHome()">RK LIVED</div>
                 <div class="live-viewers-badge" title="Real-time active viewers">
@@ -322,39 +271,27 @@
             <iframe id="video-frame" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer" scrolling="no"></iframe>
         </div>
 
-        <!-- ================= [AD PLACEMENT: 1] SMARTLINK BUTTONS (BELOW VIDEO) ================= -->
-        <!-- এখানে ডিরেক্ট লিংকের (Smartlink) ৩টি বাটন বসানো আছে -->
+        <!-- ================= [AD PLACEMENT: 1] SMARTLINK BUTTONS (SAFE ADS) ================= -->
         <div class="smartlink-container">
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">🚀 High-Speed Server-1</a>
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">⚡ High-Speed Server-2</a>
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">🔥 High-Speed Server-3</a>
         </div>
-        <!-- ==================================================================================== -->
     </div>
 
     <div id="main-content">
         <div class="container">
             
-            <!-- ================= [AD PLACEMENT: 2] BANNER 728x90 (TOP OF HOME PAGE) ================= -->
-            <!-- ডেস্কটপে যেন অর্ধেক জায়গা না নেয় তাই overflow:hidden এবং max-height:90px দিয়ে ফিক্সড করা হয়েছে -->
-            <div class="ad-banner-top-container">
-                <span class="ad-label">- Advertisement -</span>
-                <div class="ad-banner-top-wrapper">
-                    <!-- ADSTERRA SCRIPT START -->
-                    <script type="text/javascript">
-                      atOptions = {
-                        'key' : '42267b0488e4c4a5cb70add32b0d4685',
-                        'format' : 'iframe',
-                        'height' : 90,
-                        'width' : 728,
-                        'params' : {}
-                      };
-                    </script>
-                    <script type="text/javascript" src="https://www.highperformanceformat.com/42267b0488e4c4a5cb70add32b0d4685/invoke.js"></script>
-                    <!-- ADSTERRA SCRIPT END -->
-                </div>
-            </div>
-            <!-- ======================================================================================= -->
+            <!-- 
+            ========================================================================================
+            [AD PLACEMENT: 2 & 3] BANNER ADS - ⚠️ REMOVED DUE TO BLACK SCREEN ISSUE
+            ========================================================================================
+            আপনার রিকোয়েস্ট অনুযায়ী ডেস্কটপে অর্ধেক স্ক্রিন ব্ল্যাক হয়ে থাকার সমস্যার কারণে 
+            হেডারের নিচের Adsterra ব্যানারটি সম্পূর্ণ ডিজেবল/রিমুভ করে দেওয়া হয়েছে।
+            এখন থেকে আর কোনো ব্ল্যাক স্ক্রিন আসবে না। 
+            ======================================================================================== 
+            -->
+            <div id="ad-placeholder" style="display: none;"></div>
 
             <h2 class="section-title" id="current-category">Live Matches</h2>
             
@@ -364,17 +301,6 @@
                     Loading matches from server...
                 </div>
             </div>
-
-            <!-- ================= [AD PLACEMENT: 3] NATIVE BANNER (BOTTOM OF MATCHES) ================= -->
-            <!-- নিচে গ্যালারির মতো যেই বড় অ্যাডটি আসে এটি সেইটা -->
-            <div class="ad-banner-native-container">
-                <span class="ad-label">- Sponsored -</span>
-                <!-- ADSTERRA NATIVE SCRIPT START -->
-                <script async="async" data-cfasync="false" src="https://pl29830891.effectivecpmnetwork.com/06867505808da574ed1a2eb44b4e38bc/invoke.js"></script>
-                <div id="container-06867505808da574ed1a2eb44b4e38bc"></div>
-                <!-- ADSTERRA NATIVE SCRIPT END -->
-            </div>
-            <!-- ======================================================================================== -->
 
         </div>
     </div>
@@ -405,7 +331,7 @@
 
     <!-- Core Javascript -->
     <script>
-        // Copy protection (Right Click and Shortcuts)
+        // Copy protection
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
             if(e.keyCode == 123) return false; 
@@ -477,7 +403,7 @@
             try {
                 const response = await fetch(`${API_BASE}/matches/all`);
                 globalAllMatches = await response.json();
-            } catch (error) { console.log("Global fetch failed."); }
+            } catch (error) {}
         }
 
         function resetToHome() {
@@ -502,31 +428,15 @@
             const aboutHTML = `
                 <div style="margin-bottom: 25px;">
                     <h3 style="color: var(--text-light); margin-bottom: 10px; font-size: 20px; font-weight:800; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">About RK LIVED - Your Ultimate Sports Portal</h3>
-                    <p style="margin-bottom: 15px; color: var(--text-muted); font-size: 15px; line-height: 1.8;">Welcome to <strong>RK LIVED</strong>, the premier destination for live sports enthusiasts. Our platform is dedicated to providing high-quality, buffer-free live streaming for <strong>Football, Cricket, Basketball, Tennis</strong>, and other global sporting events. Whether you are looking for today's live match, ICC Cricket Tournaments, IPL, BPL, English Premier League (EPL), La Liga, or the UEFA Champions League, RK LIVED brings HD sports directly to your screen completely free.</p>
+                    <p style="margin-bottom: 15px; color: var(--text-muted); font-size: 15px; line-height: 1.8;">Welcome to <strong>RK LIVED</strong>, the premier destination for live sports enthusiasts. Our platform is dedicated to providing high-quality, buffer-free live streaming for <strong>Football, Cricket, Basketball, Tennis</strong>, and other global sporting events.</p>
                 </div>
                 
                 <div style="margin-bottom: 25px; padding: 15px; background: rgba(211, 47, 47, 0.05); border-left: 4px solid var(--primary); border-radius: 4px;">
                     <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 16px;">⚠️ Disclaimer & API Usage (Copyright Notice)</h3>
                     <p style="font-size: 14.5px; color: var(--text-muted); line-height: 1.6;">
-                        <strong>RK LIVED acts strictly as a sports aggregator and embedding portal.</strong> We do not host, upload, broadcast, or manage any video content or media files on our own servers. 
-                        All live streams and video players displayed on this website are provided through <strong>Third-Party APIs</strong> and external web servers available publicly on the internet. 
-                        We simply index and embed these links for the convenience of sports fans. Therefore, RK LIVED holds no liability for the media content. Any copyright infringement issues or DMCA takedown requests should be directed to the respective third-party video hosting providers.
+                        <strong>RK LIVED acts strictly as a sports aggregator and embedding portal.</strong> We do not host, upload, broadcast, or manage any video content or media files on our own servers. All live streams and video players displayed on this website are provided through <strong>Third-Party APIs</strong>. RK LIVED holds no liability for the media content.
                     </p>
                 </div>
-
-                <div style="margin-bottom: 20px;">
-                    <h3 style="color: var(--text-light); margin-bottom: 10px; font-size: 18px;">Why Choose RK LIVED?</h3>
-                    <ul style="list-style-type: none; padding: 0; color: var(--text-muted); line-height: 1.8; font-size: 15px;">
-                        <li>✅ <strong>100% Free Access:</strong> Enjoy premium sports content without any hidden subscriptions.</li>
-                        <li>✅ <strong>Multi-Device Optimization:</strong> Watch seamlessly on Mobile Phones, Tablets, PCs, and Smart TVs.</li>
-                        <li>✅ <strong>High-Speed Servers:</strong> Multiple secure server options to ensure a buffer-free viewing experience.</li>
-                        <li>✅ <strong>Real-Time Updates:</strong> Instant countdowns and live match status adjusted to Bangladesh Time (BD Time).</li>
-                    </ul>
-                </div>
-                
-                <p style="margin-top: 20px; font-style: italic; color: #64748b; font-size: 14px;">
-                    Thank you for choosing RK LIVED. Bookmark our website (rklived.vercel.app) to never miss a moment of your favorite live matches!
-                </p>
             `;
             document.getElementById('long-about-text').innerHTML = aboutHTML;
         }
@@ -682,12 +592,8 @@
         function closeModal() { document.getElementById('stream-modal').style.display = 'none'; }
     </script>
 
-    <!-- ================= [AD PLACEMENT: 4] POPUNDER SCRIPT (HIDDEN POPUPS) ================= -->
+    <!-- ================= [AD PLACEMENT: 4] POPUNDER (SAFE - NO VISUAL SCREEN BLOCKING) ================= -->
     <script type="text/javascript" src="https://pl29830890.effectivecpmnetwork.com/cd/fe/2d/cdfe2d8264320dc25437795b5c0abefe.js"></script>
-    
-    <!-- ================= [AD PLACEMENT: 5] SOCIAL BAR (FLOATING AD AT BOTTOM) ================= -->
-    <script type="text/javascript" src="https://pl29830893.effectivecpmnetwork.com/e4/3b/23/e43b23a4ee8940b8799d21e2721e9d8c.js"></script>
-    <!-- ========================================================================================= -->
 
     <!-- DYNAMIC AI VIEWER TRACKER (SMOOTH & REALISTIC ALGORITHM) -->
     <script>
