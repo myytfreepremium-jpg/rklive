@@ -8,7 +8,7 @@
     <meta name="google-site-verification" content="puDGakskvmrw7HPTZZYQJaKY7KiPP0rJT-koJyDcyag" />
     
     <!-- ================= ADVANCED & PROFESSIONAL SEO META TAGS ================= -->
-    <title>RK LIVED</title>
+    <title>RK LIVED - Premium Live Sports HD</title>
     <meta name="description" content="Welcome to RK LIVED! Enjoy high-quality, buffer-free live sports streaming. Watch Football, Cricket, T20 matches, and daily sports events live in HD completely free.">
     <meta name="keywords" content="RK LIVED, rklived.vercel.app, live sports, live football, cricket live stream, watch live match free, today match live, HD sports streaming, BD live sports, live tv bd, free sports streaming">
     <meta name="author" content="RK LIVED">
@@ -155,7 +155,7 @@
         .header-btn:hover { border-color: var(--primary); color: var(--primary); }
         .theme-btn { font-size: 16px; padding: 0 10px; height: 38px;}
 
-        /* ================= FIXED & STICKY VIDEO PLAYER (REDUCED SIZE TO 800px) ================= */
+        /* ================= FIXED & STICKY VIDEO PLAYER ================= */
         #player-wrapper { display: none; position: sticky; top: 115px; width: 100%; background: var(--bg-dark); z-index: 900; padding: 15px 4%; border-bottom: 1px solid var(--border-color); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         .player-top-bar { width: 100%; max-width: 800px; margin: 0 auto 10px auto; display: flex; justify-content: flex-start; }
         .player-back-btn { background: var(--card-bg); color: var(--text-light); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: var(--shadow); transition: 0.2s; }
@@ -167,36 +167,52 @@
         #pre-roll { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 20; color: white; font-size: 18px; font-weight: bold; }
         iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; background: #000; z-index: 10; }
 
-        /* ================= SMARTLINK BUTTONS CSS ================= */
+        /* ================= SMARTLINK BUTTONS ================= */
         .smartlink-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; }
         .smartlink-btn { background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: 0.2s; display: flex; align-items: center; gap: 5px; }
         .smartlink-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(16,185,129,0.4); color: white;}
 
-        /* ================= AD BANNER CSS (MOBILE RESPONSIVE FIX) ================= */
-        .ad-banner-wrapper { 
-            display: flex; justify-content: center; align-items: center; 
-            width: 100%; margin: 20px 0; overflow: hidden; clear: both;
+        /* ================= AD BANNER CSS (FIXED FOR DESKTOP & MOBILE) ================= */
+        .ad-label {
+            font-size: 10px; color: var(--text-muted); text-transform: uppercase; 
+            letter-spacing: 1.5px; margin-bottom: 5px; display: block; text-align: center;
         }
-        /* Mobile Scaling for 728x90 Banner */
-        .ad-scale {
-            width: 728px; height: 90px;
-            display: flex; justify-content: center; align-items: center;
-            transform-origin: center top;
+
+        /* Top 728x90 Banner Strict CSS (To prevent taking half display on Desktop) */
+        .ad-banner-top-container {
+            width: 100%; max-width: 728px; margin: 20px auto; 
+            text-align: center; display: flex; flex-direction: column; align-items: center;
         }
+        .ad-banner-top-wrapper { 
+            width: 728px; height: 90px; max-height: 90px; /* STRICT HEIGHT LIMIT */
+            overflow: hidden; /* PREVENTS AD FROM EXPANDING DOWNWARDS */
+            display: flex; justify-content: center; align-items: flex-start;
+            background: var(--card-bg); border: 1px dashed var(--border-color); border-radius: 4px;
+        }
+
+        /* Native Banner CSS */
+        .ad-banner-native-container {
+            width: 100%; margin: 40px auto; overflow: hidden; text-align: center;
+        }
+
+        /* Mobile scaling logic to handle 728x90 properly without breaking layout */
         @media (max-width: 768px) {
-            .ad-scale { transform: scale(0.48); } /* Scales down 728px to fit mobile screen */
-            .ad-banner-wrapper { margin: 0; height: 50px; }
+            .ad-banner-top-wrapper {
+                transform: scale(0.65); transform-origin: top center;
+                margin-bottom: -30px; /* Removes empty space created by scale down */
+                border: none;
+            }
         }
-        @media (max-width: 400px) {
-            .ad-scale { transform: scale(0.42); }
-            .ad-banner-wrapper { margin: 0; height: 45px; }
+        @media (max-width: 480px) {
+            .ad-banner-top-wrapper {
+                transform: scale(0.45);
+                margin-bottom: -45px;
+            }
         }
-        /* Native Ad Responsiveness */
-        .native-ad-container { width: 100%; max-width: 100%; overflow: hidden; text-align: center; }
 
         /* ================= MAIN CONTENT ================= */
         #main-content { flex: 1; }
-        .container { padding: 30px 4%; max-width: 1200px; margin: 0 auto; min-height: 60vh; }
+        .container { padding: 25px 4%; max-width: 1200px; margin: 0 auto; min-height: 60vh; }
         h2.section-title { margin-bottom: 25px; font-size: 20px; font-weight: 700; color: var(--text-light); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
         .matches-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
         
@@ -218,16 +234,20 @@
         .btn-modern:hover:not([disabled]) { background: var(--primary-hover); }
         .btn-modern:disabled { background: var(--border-color); color: var(--text-muted); cursor: not-allowed; }
 
-        /* ================= MODAL ================= */
-        #stream-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 2000; }
-        .modal-content { background: var(--card-bg); border-radius: 8px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); display: flex; flex-direction: column; overflow: hidden; max-height: 80vh; }
+        /* ================= MODAL & LOADER ================= */
+        #stream-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(5px); }
+        .modal-content { background: var(--card-bg); border-radius: 8px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); display: flex; flex-direction: column; overflow: hidden; max-height: 80vh; box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
         .modal-header { padding: 15px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); }
         .modal-header h3 { font-size: 15px; font-weight: 600; color: var(--text-light); }
         #stream-options-container { padding: 15px; overflow-y: auto; flex: 1; }
         .stream-option { display: block; width: 100%; padding: 12px; margin-bottom: 10px; background: var(--bg-dark); color: var(--text-light); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; text-align: left; font-size: 13px; font-weight: 600; transition: 0.2s; }
-        .stream-option:hover { border-color: var(--primary); color: var(--primary); }
+        .stream-option:hover { border-color: var(--primary); color: var(--primary); transform: translateX(5px); }
         .hd-badge { background: var(--primary); color: #fff; padding: 2px 6px; border-radius: 3px; font-size: 10px; float: right; font-weight: 700; }
-        .loader { text-align: center; padding: 40px; font-size: 14px; width: 100%; color: var(--text-muted); }
+        
+        /* Smooth Spinner Custom */
+        .loader { text-align: center; padding: 40px; font-size: 14px; width: 100%; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .spinner { width: 30px; height: 30px; border: 3px solid rgba(211, 47, 47, 0.3); border-top: 3px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* ================= ABOUT PAGE ================= */
         #about-page { display: none; padding: 40px 4%; max-width: 900px; margin: 0 auto; flex: 1; }
@@ -257,7 +277,7 @@
 
     <header>
         <div class="header-main">
-            <!-- ================= LOGO WITH DYNAMIC AI LIVE COUNTER ================= -->
+            <!-- LOGO WITH DYNAMIC AI LIVE COUNTER -->
             <div class="logo-container">
                 <div class="logo" onclick="resetToHome()">RK LIVED</div>
                 <div class="live-viewers-badge" title="Real-time active viewers">
@@ -265,7 +285,7 @@
                     <span id="viewer-count"></span> 
                 </div>
             </div>
-            <!-- ==================================================================== -->
+            
             <div class="header-controls">
                 <input type="text" id="search-input" class="search-box panel-box" placeholder="Search matches...">
                 <button id="theme-toggle" class="panel-box header-btn theme-btn" onclick="toggleTheme()" title="Toggle Theme">☀️</button>
@@ -295,24 +315,32 @@
         
         <div id="player-container">
             <div class="player-overlay-watermark">RK LIVED</div>
-            <div id="pre-roll" style="display: none;">Loading Stream...</div>
+            <div id="pre-roll" style="display: none;">
+                <div class="spinner" style="margin-bottom:10px;"></div>
+                Loading Stream...
+            </div>
             <iframe id="video-frame" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer" scrolling="no"></iframe>
         </div>
 
-        <!-- ================= ADSTERRA SMARTLINK BUTTONS ================= -->
+        <!-- ================= [AD PLACEMENT: 1] SMARTLINK BUTTONS (BELOW VIDEO) ================= -->
+        <!-- এখানে ডিরেক্ট লিংকের (Smartlink) ৩টি বাটন বসানো আছে -->
         <div class="smartlink-container">
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">🚀 High-Speed Server-1</a>
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">⚡ High-Speed Server-2</a>
             <a href="https://www.effectivecpmnetwork.com/h0k87ypb1?key=608d4406178a146b9329cf9936d9f866" target="_blank" class="smartlink-btn">🔥 High-Speed Server-3</a>
         </div>
+        <!-- ==================================================================================== -->
     </div>
 
     <div id="main-content">
         <div class="container">
             
-            <!-- ================= ADSTERRA BANNER 728x90 ================= -->
-            <div class="ad-banner-wrapper">
-                <div class="ad-scale">
+            <!-- ================= [AD PLACEMENT: 2] BANNER 728x90 (TOP OF HOME PAGE) ================= -->
+            <!-- ডেস্কটপে যেন অর্ধেক জায়গা না নেয় তাই overflow:hidden এবং max-height:90px দিয়ে ফিক্সড করা হয়েছে -->
+            <div class="ad-banner-top-container">
+                <span class="ad-label">- Advertisement -</span>
+                <div class="ad-banner-top-wrapper">
+                    <!-- ADSTERRA SCRIPT START -->
                     <script type="text/javascript">
                       atOptions = {
                         'key' : '42267b0488e4c4a5cb70add32b0d4685',
@@ -323,22 +351,30 @@
                       };
                     </script>
                     <script type="text/javascript" src="https://www.highperformanceformat.com/42267b0488e4c4a5cb70add32b0d4685/invoke.js"></script>
+                    <!-- ADSTERRA SCRIPT END -->
                 </div>
             </div>
+            <!-- ======================================================================================= -->
 
             <h2 class="section-title" id="current-category">Live Matches</h2>
             
             <div id="matches-grid" class="matches-grid">
-                <div class="loader">Loading matches from server...</div>
-            </div>
-
-            <!-- ================= ADSTERRA NATIVE BANNER ================= -->
-            <div class="ad-banner-wrapper" style="margin-top: 40px;">
-                <div class="native-ad-container">
-                    <script async="async" data-cfasync="false" src="https://pl29830891.effectivecpmnetwork.com/06867505808da574ed1a2eb44b4e38bc/invoke.js"></script>
-                    <div id="container-06867505808da574ed1a2eb44b4e38bc"></div>
+                <div class="loader">
+                    <div class="spinner"></div>
+                    Loading matches from server...
                 </div>
             </div>
+
+            <!-- ================= [AD PLACEMENT: 3] NATIVE BANNER (BOTTOM OF MATCHES) ================= -->
+            <!-- নিচে গ্যালারির মতো যেই বড় অ্যাডটি আসে এটি সেইটা -->
+            <div class="ad-banner-native-container">
+                <span class="ad-label">- Sponsored -</span>
+                <!-- ADSTERRA NATIVE SCRIPT START -->
+                <script async="async" data-cfasync="false" src="https://pl29830891.effectivecpmnetwork.com/06867505808da574ed1a2eb44b4e38bc/invoke.js"></script>
+                <div id="container-06867505808da574ed1a2eb44b4e38bc"></div>
+                <!-- ADSTERRA NATIVE SCRIPT END -->
+            </div>
+            <!-- ======================================================================================== -->
 
         </div>
     </div>
@@ -360,7 +396,6 @@
         </div>
     </div>
 
-    <!-- ================= FOOTER WITH ABOUT US BUTTON ================= -->
     <footer>
         <button onclick="showAboutPage()" class="btn-modern" style="width: auto; padding: 10px 25px; border-radius: 6px;">📖 About Us</button>
         <div class="copyright">
@@ -381,8 +416,6 @@
         const API_BASE = 'https://streamed.pk/api';
         let currentCategoryMatches = []; 
         let globalAllMatches = []; 
-        
-        // API লোড কমপ্লিট না হওয়া পর্যন্ত ইউজার ড্রপ করবে না এই সেন্সর দিয়ে
         let isApiLoaded = false; 
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -538,7 +571,7 @@
 
         async function fetchMatches(endpoint) {
             const grid = document.getElementById('matches-grid');
-            grid.innerHTML = '<div class="loader">Loading Match Data...</div>';
+            grid.innerHTML = '<div class="loader"><div class="spinner"></div>Loading Match Data...</div>';
             try {
                 const response = await fetch(`${API_BASE}/matches/${endpoint}`);
                 const matches = await response.json();
@@ -546,8 +579,6 @@
                 displayMatches(matches);
                 updateCountdowns(); 
             } catch (error) { grid.innerHTML = '<div class="loader">Failed to connect to server.</div>'; }
-            
-            // সার্ভার থেকে ডাটা লোড কমপ্লিট, এখন AI ট্র্যাকার কাজ শুরু করতে পারবে
             isApiLoaded = true;
         }
 
@@ -609,7 +640,7 @@
             const modal = document.getElementById('stream-modal');
             const container = document.getElementById('stream-options-container');
             
-            container.innerHTML = '<div class="loader">Fetching secure servers...</div>';
+            container.innerHTML = '<div class="loader"><div class="spinner"></div>Fetching secure servers...</div>';
             modal.style.display = 'flex';
 
             try {
@@ -651,13 +682,14 @@
         function closeModal() { document.getElementById('stream-modal').style.display = 'none'; }
     </script>
 
-    <!-- ================= ADSTERRA POPUNDER & SOCIAL BAR ================= -->
+    <!-- ================= [AD PLACEMENT: 4] POPUNDER SCRIPT (HIDDEN POPUPS) ================= -->
     <script type="text/javascript" src="https://pl29830890.effectivecpmnetwork.com/cd/fe/2d/cdfe2d8264320dc25437795b5c0abefe.js"></script>
+    
+    <!-- ================= [AD PLACEMENT: 5] SOCIAL BAR (FLOATING AD AT BOTTOM) ================= -->
     <script type="text/javascript" src="https://pl29830893.effectivecpmnetwork.com/e4/3b/23/e43b23a4ee8940b8799d21e2721e9d8c.js"></script>
+    <!-- ========================================================================================= -->
 
-    <!-- ============================================================================== -->
-    <!-- 🟢 DYNAMIC AI VIEWER TRACKER (SMOOTH & REALISTIC ALGORITHM) -->
-    <!-- ============================================================================== -->
+    <!-- DYNAMIC AI VIEWER TRACKER (SMOOTH & REALISTIC ALGORITHM) -->
     <script>
         function formatViewers(num) {
             if (num >= 1000000) return (num / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M'; 
@@ -665,7 +697,6 @@
             return num;
         }
 
-        // ফুটবল বা বড় ইভেন্টগুলোর তালিকা
         const MEGA_EVENTS = ['world cup', 'fifa', 'ucl', 'champions league', 'euro', 'copa', 'ipl', 'bpl', 't20', 'final', 'real madrid', 'barcelona', 'argentina', 'brazil', 'india', 'bangladesh'];
         const MEDIUM_EVENTS = ['premier league', 'la liga', 'serie a', 'bundesliga', 'ligue 1', 'football', 'soccer', 'cricket', 'psl'];
 
@@ -676,23 +707,17 @@
             currentViewers = parseInt(currentViewers);
         }
 
-        // পেজ রিফ্রেশ দিলেই কোনো লোডিং টেক্সট দেখাবে না, সাথে সাথে পুরোনো ভিউয়ার শো করবে
         document.getElementById('viewer-count').innerText = formatViewers(currentViewers);
 
         function getTargetRange() {
-            // যদি সার্ভার থেকে লাইভ খেলার ডাটা লোড না হয়ে থাকে, তবে বর্তমান রেঞ্জেই থাকবে (জিরো হবে না)
             if (!isApiLoaded) {
                 return [currentViewers - 500, currentViewers + 2000];
             }
-
-            // যদি সত্যিই কোনো লাইভ ম্যাচ না থাকে বা অন্য ট্যাবে থাকে
             if (!currentCategoryMatches || currentCategoryMatches.length === 0 || document.getElementById('sport-selector').value !== 'live') {
                 return [150, 800]; 
             }
 
             let hypeLevel = 1; 
-
-            // লাইভ ম্যাচ স্ক্যান করা
             currentCategoryMatches.forEach(match => {
                 let text = (match.title + " " + match.category).toLowerCase();
                 for(let kw of MEGA_EVENTS) {
@@ -705,57 +730,38 @@
                 }
             });
 
-            // টার্গেট সেট করা
-            if (hypeLevel === 3) {
-                // ওয়ার্ল্ড কাপ বা বড় ফুটবল ম্যাচ (৮ লাখ থেকে ৫ মিলিয়ন পর্যন্ত)
-                return [850000, 5500000]; 
-            } else if (hypeLevel === 2) {
-                // সাধারণ ফুটবল ম্যাচ বা মাঝারি ম্যাচ (২৫ হাজার থেকে ১.৫ লাখ পর্যন্ত)
-                return [25000, 150000]; 
-            } else {
-                // ছোটখাটো ম্যাচ (৩ হাজার থেকে ১৮ হাজার পর্যন্ত)
-                return [3000, 18000]; 
-            }
+            if (hypeLevel === 3) return [850000, 5500000]; 
+            else if (hypeLevel === 2) return [25000, 150000]; 
+            else return [3000, 18000]; 
         }
 
         function updateDynamicViewers() {
             let [minTarget, maxTarget] = getTargetRange();
 
             if (currentViewers < minTarget) {
-                // অনেক কম থাকলে আস্তে আস্তে বাড়বে (Growth) - ধীর গতিতে
-                let pump = Math.floor(currentViewers * (Math.random() * 0.02 + 0.01)); // ১% থেকে ৩% বৃদ্ধি
+                let pump = Math.floor(currentViewers * (Math.random() * 0.02 + 0.01)); 
                 if (pump < 15) pump = 15 + Math.floor(Math.random() * 20);
                 currentViewers += pump;
             } else if (currentViewers > maxTarget) {
-                // অনেক বেশি থাকলে আস্তে আস্তে কমবে (Drop) - ধীর গতিতে
-                let dump = Math.floor(currentViewers * (Math.random() * 0.03 + 0.01)); // ১% থেকে ৪% পতন
+                let dump = Math.floor(currentViewers * (Math.random() * 0.03 + 0.01));
                 if (dump < 15) dump = 15;
                 currentViewers -= dump;
             } else {
-                // খেলা চলাকালীন খুব ন্যাচারাল ফ্লো (০.১% থেকে ০.৩% পরিবর্তন হবে মাত্র)
                 let isIncreasing = Math.random() < 0.55; 
                 let percentChange = (Math.random() * 0.2) + 0.1; 
                 let fluctuation = Math.floor((currentViewers * percentChange) / 100);
                 
                 if (fluctuation < 5) fluctuation = 5 + Math.floor(Math.random() * 10);
                 
-                if (isIncreasing) {
-                    currentViewers += fluctuation;
-                } else {
-                    currentViewers -= fluctuation;
-                }
+                if (isIncreasing) { currentViewers += fluctuation; } 
+                else { currentViewers -= fluctuation; }
             }
 
             if(currentViewers < 12) currentViewers = 12 + Math.floor(Math.random() * 10);
-
-            // মেমোরিতে সেভ করে রাখা
             localStorage.setItem('rk_ai_viewers', currentViewers);
-
-            // ওয়েবসাইটে শো করা
             document.getElementById('viewer-count').innerText = formatViewers(currentViewers);
         }
 
-        // প্রতি ৫ থেকে ৯ সেকেন্ড পর পর খুব ধীরে এবং স্বাভাবিকভাবে আপডেট হবে (যাতে ১০০% আসল মনে হয়)
         setInterval(() => {
             updateDynamicViewers();
         }, Math.floor(Math.random() * 4000) + 5000);
